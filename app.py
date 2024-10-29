@@ -28,6 +28,11 @@ def show(id):
     return db.photos_find_by_id(id)
 
 
+@app.route("/photos/<id>.json", methods=["DELETE"])
+def destroy(id):
+    return db.photos_destroy_by_id(id)
+
+
 @app.route("/photos/<id>.json", methods=["PATCH"])
 def update(id):
     name = request.form.get("name")
