@@ -22,6 +22,21 @@ def photos_find_by_id(id):
     return dict(row)
 
 
+def photos_update_by_id(id, name, width, height):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        UPDATE photos SET name = ?, width = ?, height = ?
+        WHERE id = ?
+        RETURNING *
+        """,
+        (name, width, height, id),
+    ).fetchone()
+    conn.commit()
+    return dict(row)
+
+
+
 def photos_create(name, width, height):
     conn = connect_to_db()
     row = conn.execute(
