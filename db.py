@@ -10,6 +10,18 @@ def photos_all():
     return [dict(row) for row in rows]
 
 
+def photos_find_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        SELECT * FROM photos
+        WHERE id = ?
+        """,
+        (id,),
+    ).fetchone()
+    return dict(row)
+
+
 def photos_create(name, width, height):
     conn = connect_to_db()
     row = conn.execute(
